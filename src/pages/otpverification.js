@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
-// ADD THIS IMPORT LINE HERE (after moving image to src/assets/)
-import backgroundImage from '../assets/rectangle1-1.png';
+import { useNavigate } from 'react-router-dom';
 
 const OTPVerification = () => {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef([]);
 
@@ -29,8 +29,18 @@ const OTPVerification = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const otpCode = otp.join('');
+    
+    // Validate OTP is complete
+    if (otpCode.length !== 6) {
+      alert('Please enter all 6 digits');
+      return;
+    }
+    
     console.log('OTP submitted:', otpCode);
-    // Handle OTP verification here
+    // Here you would normally verify OTP with backend
+    
+    // Navigate to sign in page after successful OTP verification
+    navigate('/signin');
   };
 
   return (
@@ -57,7 +67,6 @@ const OTPVerification = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            // USE THE IMPORTED IMAGE HERE
             backgroundImage: 'url("/assets/rectangle1-1.png")',
             backgroundColor: '#1f2937'
           }}
@@ -148,9 +157,13 @@ const OTPVerification = () => {
 
             <p className="text-center text-gray-600 text-sm lg:text-base">
               Don't have an account?{' '}
-              <a href="/signup" className="text-black font-medium hover:underline">
+              <button
+                type="button"
+                onClick={() => navigate('/signup')}
+                className="text-black font-medium hover:underline"
+              >
                 Sign Up
-              </a>
+              </button>
             </p>
           </form>
         </div>

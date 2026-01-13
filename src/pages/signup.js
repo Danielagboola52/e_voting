@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -17,8 +19,24 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here
+    
+    // Validate passwords match
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    // Validate password length
+    if (formData.password.length < 8) {
+      alert('Password must be at least 8 characters!');
+      return;
+    }
+
     console.log('Form submitted:', formData);
+    // Here you would normally send data to backend
+    
+    // Navigate to OTP verification page after successful signup
+    navigate('/otpverification');
   };
 
   return (
@@ -121,7 +139,7 @@ const SignUp = () => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                placeholder="Enter your email"
+                placeholder="Enter your full name"
                 className="w-full px-4 py-3 bg-gray-200 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
                 required
               />
@@ -156,6 +174,7 @@ const SignUp = () => {
                 placeholder="Enter your password"
                 className="w-full px-4 py-3 bg-gray-200 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
                 required
+                minLength={8}
               />
             </div>
 
@@ -169,9 +188,10 @@ const SignUp = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                placeholder="Enter your password"
+                placeholder="Confirm your password"
                 className="w-full px-4 py-3 bg-gray-200 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
                 required
+                minLength={8}
               />
               <p className="text-sm text-gray-600 mt-2">Must be at least 8 characters</p>
             </div>
@@ -185,9 +205,13 @@ const SignUp = () => {
 
             <p className="text-center text-gray-600">
               Already have an account?{' '}
-              <a href="/login" className="text-black font-medium hover:underline">
+              <button
+                type="button"
+                onClick={() => navigate('/signin')}
+                className="text-black font-medium hover:underline"
+              >
                 Log in
-              </a>
+              </button>
             </p>
           </form>
         </div>

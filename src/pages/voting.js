@@ -1,91 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, X, CheckCircle } from 'lucide-react';
-
-// NavBar Component (reusable across pages)
-const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  return (
-    <nav className="bg-black text-white py-4 px-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-            <CheckCircle className="w-5 h-5 text-black" />
-          </div>
-          <span className="text-xl font-bold">VoteNow</span>
-          <span className="text-gray-400">|</span>
-          <span className="text-gray-300">HOD Election</span>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">Home</a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">Aspirants</a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">Live Results</a>
-          <a href="#" className="text-yellow-400 hover:text-yellow-300 transition-colors font-medium">Voting</a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors">Sign Out</a>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden"
-          onClick={toggleMenu}
-        >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden mt-4 pb-4 border-t border-gray-700">
-          <div className="flex flex-col space-y-4 mt-4">
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">Home</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">Aspirants</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">Live Results</a>
-            <a href="#" className="text-yellow-400 hover:text-yellow-300 transition-colors font-medium">Voting</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">Sign Out</a>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-};
-
-// Footer Component (reusable across pages)
-const Footer = () => {
-  return (
-    <footer className="bg-black text-white py-8 px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Footer Links */}
-        <div className="flex flex-wrap justify-center md:justify-start space-x-6 md:space-x-8 mb-6">
-          <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm md:text-base">Terms</a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm md:text-base">Privacy Policy</a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm md:text-base">Help center</a>
-          <a href="#" className="text-gray-300 hover:text-white transition-colors text-sm md:text-base">Socials</a>
-        </div>
-
-        {/* Footer Bottom */}
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-6">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
-              <CheckCircle className="w-4 h-4 text-black" />
-            </div>
-            <span className="text-lg font-bold">VoteNow</span>
-          </div>
-          
-          <div className="text-center md:text-right">
-            <p className="text-gray-400 text-sm">2025 Vote-Now. All rights reserves.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
+import { CheckCircle } from 'lucide-react';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 // Voting Confirmation Modal Component
 const VotingConfirmationModal = ({ isOpen, onClose, onConfirm, candidate, position }) => {
@@ -135,6 +51,7 @@ const VotingConfirmationModal = ({ isOpen, onClose, onConfirm, candidate, positi
     </div>
   );
 };
+
 // Main Voting Page Component
 const VotingPage = () => {
   const [selectedPositions, setSelectedPositions] = useState({});

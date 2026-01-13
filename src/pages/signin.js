@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-// STEP 1: ADD YOUR IMAGE IMPORT HERE
-import backgroundImage from '../assets/3D geometric crystalline background.png';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,7 +20,10 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Sign in data:', formData);
-    // Handle sign in logic here
+    // Here you would normally authenticate with backend
+    
+    // Navigate to home page after successful login
+    navigate('/home');
   };
 
   return (
@@ -47,10 +50,7 @@ const SignIn = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            // STEP 2: REPLACE THIS WITH YOUR IMPORTED IMAGE
-             backgroundImage: 'url("3D geometric crystalline background.png")',
-            
-            // TEMPORARY: Using gradient until you add your image
+            backgroundImage: 'url("/assets/3D geometric crystalline background.png")',
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             backgroundColor: '#1f2937'
           }}
@@ -113,7 +113,7 @@ const SignIn = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Enter your email"
+                placeholder="Enter your password"
                 className="w-full px-4 py-3 lg:py-4 bg-gray-200 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white placeholder-gray-500 text-base"
                 required
               />
@@ -134,9 +134,13 @@ const SignIn = () => {
                   Remember me
                 </label>
               </div>
-              <a href="/forgot-password" className="text-sm text-gray-700 hover:text-black hover:underline">
+              <button
+                type="button"
+                onClick={() => navigate('/forgot-password')}
+                className="text-sm text-gray-700 hover:text-black hover:underline"
+              >
                 Forgot Password
-              </a>
+              </button>
             </div>
 
             <button
@@ -148,9 +152,13 @@ const SignIn = () => {
 
             <p className="text-center text-gray-600 text-sm lg:text-base">
               Don't have an account?{' '}
-              <a href="/signup" className="text-black font-medium hover:underline">
+              <button
+                type="button"
+                onClick={() => navigate('/signup')}
+                className="text-black font-medium hover:underline"
+              >
                 Sign Up
-              </a>
+              </button>
             </p>
           </form>
         </div>
